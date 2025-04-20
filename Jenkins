@@ -1,0 +1,21 @@
+pipeline {
+  agent any
+  environment {
+    git_repo: 'https://github.com/chandrukannan99/Devops.git'
+    git_credentials: 'jenkins'
+}
+
+  stages {
+    stage('Clone Repo') {
+      steps {
+        git url: "${git_repo}", credentialsId: "${git_credentials}"
+      }
+  }
+    stage('Deploy to Kubernetes') {
+       steps {
+          sh 'kubectl apply -f deploy.yml'
+          sh 'kubectl apply -f service.yml'
+      }
+ }
+}
+}
