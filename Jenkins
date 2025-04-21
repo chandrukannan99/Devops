@@ -1,21 +1,34 @@
 pipeline {
   agent any
+
   environment {
     git_repo = 'https://github.com/chandrukannan99/Devops.git'
-    git_credentials = 'jenkins'
-}
+    git_credentials = 'afad0840-1fec-469a-9f4a-df0a790bd988' // Replace with 'jenkins' if you're sure it exists
+  }
 
   stages {
     stage('Clone Repo') {
       steps {
-        git url: "${git_repo}", credentialsId: "${git_credentials}"
+        git branch: 'main',
+            url: "${git_repo}",
+            credentialsId: "${git_credentials}"
       }
-  }
+    }
+
     stage('Deploy to Kubernetes') {
-       steps {
-          sh 'kubectl apply -f deploy.yml'
-          sh 'kubectl apply -f service.yml'
+      steps {
+        sh 'kubectl apply -f deploy.yml'
+        sh 'kubectl apply -f service.yml'
       }
- }
-}
+    }
+  }
+
+  post {
+    success {
+      echo '✅ Deployment completed successfully!'
+    }
+    failure {
+      echo '❌ Pipeline failed. Please check the logs.'
+    }
+  }
 }
