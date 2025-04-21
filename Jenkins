@@ -1,8 +1,8 @@
 pipeline {
   agent any
   environment {
-    git_repo: 'https://github.com/chandrukannan99/Devops.git'
-    git_credentials: 'jenkins'
+    git_repo = 'https://github.com/chandrukannan99/Devops.git'
+    git_credentials = 'jenkins'
 }
 
   stages {
