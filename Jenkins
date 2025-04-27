@@ -17,6 +17,7 @@ pipeline {
 
     stage('Deploy to Kubernetes') {
       steps {
+        sh 'sudo su chandru'
         sh 'sudo kubectl apply -f devops-k8s/deploy.yml'
       }
     }
